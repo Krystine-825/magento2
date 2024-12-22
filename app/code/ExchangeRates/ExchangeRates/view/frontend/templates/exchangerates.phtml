@@ -1,0 +1,31 @@
+<?php
+$exchangeRates = $block->getData('exchangeRates');
+?>
+
+<h1>Exchange Rates</h1>
+<?php if (!empty($exchangeRates)): ?>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Currency</th>
+                <th>Currency Name</th>
+                <th>Buy Rate</th>
+                <th>Transfer Rate</th>
+                <th>Sell Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($exchangeRates as $rate): ?>
+                <tr>
+                    <td><?= htmlspecialchars($rate['currency']) ?></td>
+                    <td><?= htmlspecialchars($rate['currency_name']) ?></td>
+                    <td><?= htmlspecialchars($rate['buy_rate']) ?></td>
+                    <td><?= htmlspecialchars($rate['transfer_rate']) ?></td>
+                    <td><?= htmlspecialchars($rate['sell_rate']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p>No exchange rates available.</p>
+<?php endif; ?>

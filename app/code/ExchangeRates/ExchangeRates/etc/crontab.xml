@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:etc/crontab.xsd">
+    <group id="default">
+        <job name="update_exchange_rates" instance="ExchangeRates\ExchangeRates\Cron\UpdateRates" method="execute">
+            <schedule>* */1 * * *</schedule> <!-- Runs every hour -->
+        </job>
+    </group>
+</config>

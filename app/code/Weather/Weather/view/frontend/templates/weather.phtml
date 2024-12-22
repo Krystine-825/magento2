@@ -1,0 +1,170 @@
+<?php
+$apiKey = "17f19b2cbd65f41be79df3a796f083ef";
+$cities = [
+    "Hà Nội" => "Hà Nội, VN",
+    "Thành phố Hồ Chí Minh" => "Ho Chi Minh City, VN",
+    "Đà Nẵng" => "Đà Nẵng, VN",
+    "Hải Phòng" => "Hải Phòng, VN",
+    "Nha Trang" => "Nha Trang, VN",
+    "Cần Thơ" => "Cần Thơ, VN",
+    "An Giang" => "An Giang, VN",
+    "Bà Rịa - Vũng Tàu" => "Ba Ria - Vung Tau, VN",
+    "Bắc Giang" => "Bac Giang, VN",
+    "Bắc Ninh" => "Bac Ninh, VN",
+    "Bến Tre" => "Ben Tre, VN",
+    "Bình Dương" => "Binh Duong, VN",
+    "Bình Định" => "Binh Dinh, VN",
+    "Cà Mau" => "Ca Mau, VN",
+    "Đắk Lắk" => "Dak Lak, VN",
+    "Đắk Nông" => "Dak Nong, VN",
+    "Điện Biên" => "Dien Bien, VN",
+    "Hà Giang" => "Ha Giang, VN",
+    "Hà Nam" => "Ha Nam, VN",
+    "Hà Tĩnh" => "Ha Tinh, VN",
+    "Hồ Chí Minh" => "Ho Chi Minh City, VN",
+    "Hưng Yên" => "Hung Yen, VN",
+    "Khánh Hòa" => "Khanh Hoa, VN",
+    "Kiên Giang" => "Kien Giang, VN",
+    "Kon Tum" => "Kon Tum, VN",
+    "Lai Châu" => "Lai Chau, VN",
+    "Lâm Đồng" => "Lam Dong, VN",
+    "Lạng Sơn" => "Lang Son, VN",
+    "Nam Định" => "Nam Dinh, VN",
+    "Ninh Bình" => "Ninh Binh, VN",
+    "Ninh Thuận" => "Ninh Thuan, VN",
+    "Phú Thọ" => "Phu Tho, VN",
+    "Phú Yên" => "Phu Yen, VN",
+    "Quảng Bình" => "Quang Binh, VN",
+    "Quảng Nam" => "Quang Nam, VN",
+    "Quảng Ngãi" => "Quang Ngai, VN",
+    "Quảng Ninh" => "Quang Ninh, VN",
+    "Sóc Trăng" => "Soc Trang, VN",
+    "Sơn La" => "Son La, VN",
+    "Tây Ninh" => "Tay Ninh, VN",
+    "Thái Bình" => "Thai Binh, VN",
+    "Thái Nguyên" => "Thai Nguyen, VN",
+    "Thanh Hóa" => "Thanh Hoa, VN",
+    "Thừa Thiên - Huế" => "Thua Thien Hue, VN",
+    "Tiền Giang" => "Tien Giang, VN",
+    "Trà Vinh" => "Tra Vinh, VN",
+    "Tuyên Quang" => "Tuyen Quang, VN",
+    "Vĩnh Long" => "Vinh Long, VN",
+    "Vĩnh Phúc" => "Vinh Phuc, VN",
+    "Yên Bái" => "Yen Bai, VN"
+];
+
+
+$city = isset($_POST['city']) ? $_POST['city'] : "Hà Nội, VN";
+$apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" . urlencode($city) . "&appid=" . $apiKey . "&units=metric";
+
+
+$response = file_get_contents($apiUrl);
+
+
+if ($response === FALSE) {
+    echo "<p>Không thể lấy dữ liệu thời tiết. Vui lòng kiểm tra API, tên thành phố hoặc kết nối mạng.</p>";
+} else {
+    $data = json_decode($response, true);
+
+
+    if (isset($data['main'])) {
+        $iconCode = $data['weather'][0]['icon'];
+        $iconUrl = "https://openweathermap.org/img/wn/{$iconCode}@2x.png";
+
+
+        date_default_timezone_set("Asia/Ho_Chi_Minh");
+        $localTime = date("H:i - d/m/Y", $data['dt']);
+
+
+        echo "<style>
+   body {
+           font-family: 'Roboto', sans-serif;
+       background-color: #f5f5f5;
+       padding: 20px;
+       font-size : 18px;
+   }
+   .weather-container {
+       max-width: 1200px;
+       margin: auto;
+       padding: 15px;
+       /*background: #f0f9ff;*/
+       background:linear-gradient(135deg, #dceaff, #a0c4ff);
+       border-radius: 10px;
+       filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.2));
+       text-align: center;
+       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+   }
+
+   .weather-icon {
+    width: 1000px;
+    height: 500px;
+    margin: 5px 0;
+    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.2));
+    border-radius: 50%;
+    padding: 10px;
+    border: 10px solid #000000;
+    }
+
+   label {
+           font-size: 1.2em;
+       color: #333;
+   }
+   select {
+           font-size: 1.2em;
+       padding: 10px;
+       margin: 10px 0;
+   }
+   input[type='submit'] {
+   font-size: 1.2em;
+       background-color: #4b0082;
+       color: white;
+       border: none;
+       border-radius: 5px;
+       padding: 10px 20px;
+       cursor: pointer;
+   }
+   input[type='submit']:hover {
+           background-color: #808080;
+   }
+   iframe {
+           width: 100%;
+           height: 600px;
+       border: none;
+       margin-top: 20px;
+       border-radius: 10px;
+   }
+</style>";
+
+
+        echo "<form method='POST'>
+               <label for='city'>Chọn thành phố:</label>
+               <select name='city' id='city'>";
+        foreach ($cities as $name => $value) {
+            echo "<option value='" . htmlspecialchars($value) . "'" . (($value == $city) ? ' selected' : '') . ">" . htmlspecialchars($name) . "</option>";
+        }
+        echo "</select>
+             <input type='submit' value='Xem thời tiết'>
+             </form>";
+
+
+        echo "<div class='weather-container'>";
+        echo "<img src='{$iconUrl}' alt='Weather icon'>";
+        echo "<h1>Thời tiết tại {$city}</h1>";
+        echo "<p><strong>Nhiệt độ:</strong> " . htmlspecialchars($data['main']['temp']) . "°C</p>";
+        echo "<p><strong>Mô tả:</strong> " . htmlspecialchars($data['weather'][0]['description']) . "</p>";
+        echo "<p><strong>Cảm giác như:</strong> " . htmlspecialchars($data['main']['feels_like']) . "°C</p>";
+        echo "<p><strong>Độ ẩm:</strong> " . htmlspecialchars($data['main']['humidity']) . "%</p>";
+        echo "<p><strong>Gió:</strong> " . htmlspecialchars($data['wind']['speed']) . " m/s</p>";
+        echo "<p><strong>Áp suất:</strong> " . htmlspecialchars($data['main']['pressure']) . " hPa</p>";
+        echo "<p><strong>Giờ hiện tại:</strong> {$localTime}</p>";
+
+
+        // Thêm iframe bản đồ thời tiết
+        echo "<iframe src='https://openweathermap.org/weathermap?basemap=map&cities=true&layer=temperature&lat=20.5937&lon=105.8400&zoom=3'></iframe>";
+        echo "</div>";
+    } else {
+        echo "<p>Không thể lấy dữ liệu thời tiết hợp lệ. Vui lòng thử lại sau.</p>";
+    }
+}
+?>
+

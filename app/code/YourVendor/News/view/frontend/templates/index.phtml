@@ -1,0 +1,237 @@
+<?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+$baseUrl = "https://vnexpress.net";
+
+$newsUrls = [
+    "tin-moi-nhat" => "https://vnexpress.net/rss/tin-moi-nhat.rss",
+    "thoi-su" => "https://vnexpress.net/rss/thoi-su.rss",
+    "kinh-doanh" => "https://vnexpress.net/rss/kinh-doanh.rss",
+    "giai-tri" => "https://vnexpress.net/rss/giai-tri.rss",
+    "the-thao" => "https://vnexpress.net/rss/the-thao.rss",
+    "cong-nghe" => "https://vnexpress.net/rss/cong-nghe.rss",
+    "suc-khoe" => "https://vnexpress.net/rss/suc-khoe.rss",
+    "giao-duc" => "https://vnexpress.net/rss/giao-duc.rss",
+    "du-lich" => "https://vnexpress.net/rss/du-lich.rss",
+    "phap-luat" => "https://vnexpress.net/rss/phap-luat.rss",
+    "the-gioi" => "https://vnexpress.net/rss/the-gioi.rss",
+];
+
+$allNewsItems = [];
+
+// load tin tức từ RSS
+foreach ($newsUrls as $newsUrl) {
+    $newsData = @simplexml_load_file($newsUrl);
+    if ($newsData && isset($newsData->channel->item)) {
+        foreach ($newsData->channel->item as $item) {
+            $allNewsItems[] = $item; // Collect all news items
+        }
+    }
+}
+
+$searchTerm = isset($_GET['search']) ? mb_strtolower($_GET['search']) : '';
+$filterTopic = isset($_GET['topic']) ? $_GET['topic'] : '';
+
+// sắp xếp
+usort($allNewsItems, function($a, $b) {
+    return strtotime($b->pubDate) - strtotime($a->pubDate);
+});
+
+
+$uniqueItems = [];
+$uniqueUrls = [];
+
+foreach ($allNewsItems as $item) {
+    $itemUrl = (string) $item->link;
+    if (!in_array($itemUrl, $uniqueUrls)) {
+        $uniqueItems[] = $item;
+        $uniqueUrls[] = $itemUrl;
+    }
+}
+
+// lọc các chủ đề
+if ($filterTopic !== '' && isset($newsUrls[$filterTopic])) {
+    $selectedUrl = $newsUrls[$filterTopic];
+    $filteredNewsData = simplexml_load_file($selectedUrl);
+    if ($filteredNewsData && isset($filteredNewsData->channel->item)) {
+        foreach ($filteredNewsData->channel->item as $item) {
+            $uniqueItems[] = $item;
+        }
+    }
+}
+
+// Filter by search term
+if ($searchTerm !== '') {
+    $uniqueItems = array_filter($uniqueItems, function($item) use ($searchTerm) {
+        return (mb_strpos(mb_strtolower($item->title), $searchTerm) !== false) ||
+            (mb_strpos(mb_strtolower(strip_tags($item->description)), $searchTerm) !== false);
+    });
+}
+
+$itemsPerPage = 30;
+$totalItems = count($uniqueItems);
+$totalPages = ceil($totalItems / $itemsPerPage);
+$current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$current_page = max(1, min($current_page, $totalPages));
+
+$offset = ($current_page - 1) * $itemsPerPage;
+$currentItems = array_slice($uniqueItems, $offset, $itemsPerPage);
+
+if ($currentItems) :
+    $title = "BẢN TIN TỔNG HỢP";
+    ?>
+
+    <!DOCTYPE html>
+    <html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><?php echo $title; ?></title>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                line-height: 1.6;
+                color: #000;
+                background: #e9ecef;
+                padding: 20px;
+                margin: 0 auto;
+                max-width: 1800px;
+                box-sizing: border-box;
+            }
+            h1 {
+                text-align: left;
+                color: #333;
+                margin-bottom: 30px;
+            }
+            ul {
+                list-style-type: none;
+                padding: 0;
+            }
+            li {
+                display: flex;
+                background: #fff;
+                padding: 15px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                margin-bottom: 20px;
+                transition: transform 0.3s ease-in-out;
+            }
+            li:hover {
+                transform: translateY(-5px);
+            }
+            img {
+                max-width: 10%;
+                height: auto;
+                border-radius: 10px;
+                margin-right: 15px;
+            }
+            a {
+                text-decoration: none;
+                color: #007bff;
+                font-weight: bold;
+                font-size: 1.2em;
+                display: block;
+                margin-bottom: 10px;
+            }
+            p {
+                margin: 0;
+                color: #000;
+                font-size: 18px;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+            .filter-form, .search-form {
+                margin-bottom: 20px;
+                text-align: left;
+            }
+            input[type="text"], select {
+                padding: 10px;
+                width: 45%;
+                margin-right: 10px;
+                font-size: 20px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            input[type="submit"] {
+                padding: 10px 15px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            input[type="submit"]:hover {
+                background-color: #0056b3;
+            }
+            .pagination {
+                margin-top: 20px;
+                display: flex;
+                justify-content: center;
+            }
+            .pagination a {
+                background: #007bff;
+                color: white;
+                padding: 10px 15px;
+                text-decoration: none;
+                margin: 0 5px;
+                border-radius: 5px;
+                transition: background 0.3s;
+            }
+            .pagination a:hover {
+                background: #0056b3;
+            }
+            .pagination span {
+                padding: 10px 15px;
+                margin: 0 5px;
+            }
+        </style>
+    </head>
+    <body>
+    <h1><?php echo $title; ?></h1>
+
+    <form class="search-form" method="GET" action="">
+        <input type="text" name="search" placeholder="Tìm kiếm tin tức..." value="<?php echo htmlspecialchars($searchTerm); ?>">
+        <input type="submit" value="Tìm kiếm">
+    </form>
+
+    <form class="filter-form" method="GET" action="">
+        <select name="topic" onchange="this.form.submit()">
+            <option value="">Chủ đề</option>
+            <?php foreach ($newsUrls as $key => $url): ?>
+                <option value="<?php echo $key; ?>" <?php if ($key == $filterTopic) echo 'selected'; ?>><?php echo ucfirst(str_replace("-", " ", $key)); ?></option>
+            <?php endforeach; ?>
+        </select>
+    </form>
+
+    <ul>
+        <?php foreach ($currentItems as $item): ?>
+            <li>
+                <?php if (isset($item->enclosure)): ?>
+                    <img src="<?php echo $item->enclosure['url']; ?>" alt="Hình ảnh tin tức">
+                <?php endif; ?>
+                <div>
+                    <a href="<?php echo $item->link; ?>" target="_blank"><?php echo htmlspecialchars($item->title); ?></a>
+                    <p><?php echo strip_tags($item->description); ?></p>
+                </div>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+
+    <div class="pagination">
+        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+            <a href="?page=<?php echo $i; ?>&search=<?php echo urlencode($searchTerm); ?>&topic=<?php echo urlencode($filterTopic); ?>" <?php if ($i === $current_page) echo 'style="background: #0056b3;"'; ?>>
+                <?php echo $i; ?>
+            </a>
+        <?php endfor; ?>
+    </div>
+
+    </body>
+    </html>
+
+<?php else: ?>
+    <p>Không có tin tức nào để hiển thị.</p>
+<?php endif; ?>
+
