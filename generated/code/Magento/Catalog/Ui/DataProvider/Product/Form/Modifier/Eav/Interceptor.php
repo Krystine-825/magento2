@@ -17,42 +17,6 @@ class Interceptor extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modifier
     /**
      * {@inheritdoc}
      */
-    public function modifyMeta(array $meta)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'modifyMeta');
-        return $pluginInfo ? $this->___callPlugins('modifyMeta', func_get_args(), $pluginInfo) : parent::modifyMeta($meta);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addContainerChildren(array $attributeContainer, \Magento\Catalog\Api\Data\ProductAttributeInterface $attribute, $groupCode, $sortOrder)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'addContainerChildren');
-        return $pluginInfo ? $this->___callPlugins('addContainerChildren', func_get_args(), $pluginInfo) : parent::addContainerChildren($attributeContainer, $attribute, $groupCode, $sortOrder);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getContainerChildren(\Magento\Catalog\Api\Data\ProductAttributeInterface $attribute, $groupCode, $sortOrder)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getContainerChildren');
-        return $pluginInfo ? $this->___callPlugins('getContainerChildren', func_get_args(), $pluginInfo) : parent::getContainerChildren($attribute, $groupCode, $sortOrder);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function modifyData(array $data)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'modifyData');
-        return $pluginInfo ? $this->___callPlugins('modifyData', func_get_args(), $pluginInfo) : parent::modifyData($data);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function setupAttributeMeta(\Magento\Catalog\Api\Data\ProductAttributeInterface $attribute, $groupCode, $sortOrder)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setupAttributeMeta');
@@ -66,14 +30,5 @@ class Interceptor extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modifier
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setupAttributeContainerMeta');
         return $pluginInfo ? $this->___callPlugins('setupAttributeContainerMeta', func_get_args(), $pluginInfo) : parent::setupAttributeContainerMeta($attribute);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setupAttributeData(\Magento\Catalog\Api\Data\ProductAttributeInterface $attribute)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setupAttributeData');
-        return $pluginInfo ? $this->___callPlugins('setupAttributeData', func_get_args(), $pluginInfo) : parent::setupAttributeData($attribute);
     }
 }

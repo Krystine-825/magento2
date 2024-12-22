@@ -22,22 +22,4 @@ class Interceptor extends \Magento\Quote\Model\GuestCart\GuestPaymentMethodManag
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'set');
         return $pluginInfo ? $this->___callPlugins('set', func_get_args(), $pluginInfo) : parent::set($cartId, $method);
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function get($cartId)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'get');
-        return $pluginInfo ? $this->___callPlugins('get', func_get_args(), $pluginInfo) : parent::get($cartId);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getList($cartId)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getList');
-        return $pluginInfo ? $this->___callPlugins('getList', func_get_args(), $pluginInfo) : parent::getList($cartId);
-    }
 }

@@ -1,1 +1,0 @@
-/var/www/html/magento/vendor/magento/module-page-builder/view/adminhtml/web/js/form/element/margins-and-padding.js

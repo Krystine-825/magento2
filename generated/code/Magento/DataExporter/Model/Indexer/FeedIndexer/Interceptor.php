@@ -40,22 +40,4 @@ class Interceptor extends \Magento\DataExporter\Model\Indexer\FeedIndexer implem
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'executeRow');
         return $pluginInfo ? $this->___callPlugins('executeRow', func_get_args(), $pluginInfo) : parent::executeRow($id);
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function execute($ids)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'execute');
-        return $pluginInfo ? $this->___callPlugins('execute', func_get_args(), $pluginInfo) : parent::execute($ids);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getFeedIndexMetadata() : \Magento\DataExporter\Model\Indexer\FeedIndexMetadata
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getFeedIndexMetadata');
-        return $pluginInfo ? $this->___callPlugins('getFeedIndexMetadata', func_get_args(), $pluginInfo) : parent::getFeedIndexMetadata();
-    }
 }

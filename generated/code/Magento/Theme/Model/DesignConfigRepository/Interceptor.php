@@ -17,15 +17,6 @@ class Interceptor extends \Magento\Theme\Model\DesignConfigRepository implements
     /**
      * {@inheritdoc}
      */
-    public function getByScope($scope, $scopeId)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getByScope');
-        return $pluginInfo ? $this->___callPlugins('getByScope', func_get_args(), $pluginInfo) : parent::getByScope($scope, $scopeId);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function save(\Magento\Theme\Api\Data\DesignConfigInterface $designConfig)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'save');

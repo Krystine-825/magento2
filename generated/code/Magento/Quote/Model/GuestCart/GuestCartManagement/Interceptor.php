@@ -17,15 +17,6 @@ class Interceptor extends \Magento\Quote\Model\GuestCart\GuestCartManagement imp
     /**
      * {@inheritdoc}
      */
-    public function createEmptyCart()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'createEmptyCart');
-        return $pluginInfo ? $this->___callPlugins('createEmptyCart', func_get_args(), $pluginInfo) : parent::createEmptyCart();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function assignCustomer($cartId, $customerId, $storeId)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'assignCustomer');

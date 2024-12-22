@@ -31,13 +31,4 @@ class Interceptor extends \Magento\Eav\Model\Adminhtml\System\Config\Source\Inpu
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getVolatileInputTypes');
         return $pluginInfo ? $this->___callPlugins('getVolatileInputTypes', func_get_args(), $pluginInfo) : parent::getVolatileInputTypes();
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getInputTypeHints()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getInputTypeHints');
-        return $pluginInfo ? $this->___callPlugins('getInputTypeHints', func_get_args(), $pluginInfo) : parent::getInputTypeHints();
-    }
 }
