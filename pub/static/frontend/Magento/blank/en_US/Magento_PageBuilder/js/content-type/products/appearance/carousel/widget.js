@@ -1,0 +1,1 @@
+/var/www/html/magento/vendor/magento/module-page-builder/view/base/web/js/content-type/products/appearance/carousel/widget.js

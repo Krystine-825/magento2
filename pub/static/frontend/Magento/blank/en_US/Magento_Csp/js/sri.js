@@ -1,0 +1,1 @@
+/var/www/html/magento/vendor/magento/module-csp/view/base/web/js/sri.js

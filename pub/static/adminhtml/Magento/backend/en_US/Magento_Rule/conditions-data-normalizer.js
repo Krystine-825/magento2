@@ -1,0 +1,1 @@
+/var/www/html/magento/vendor/magento/module-rule/view/adminhtml/web/conditions-data-normalizer.js
