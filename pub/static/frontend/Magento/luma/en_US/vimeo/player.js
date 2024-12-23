@@ -1,1 +1,0 @@
-/var/www/html/magento/lib/web/vimeo/player.js

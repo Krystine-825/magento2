@@ -234,3 +234,9 @@
 #78 \/var\/www\/html\/magento\/vendor\/magento\/framework\/App\/Bootstrap.php(264): Magento\\Framework\\App\\Http\\Interceptor->launch()
 #79 \/var\/www\/html\/magento\/pub\/index.php(30): Magento\\Framework\\App\\Bootstrap->run(Object(Magento\\Framework\\App\\Http\\Interceptor))
 #80 {main}","elapsed":"00:00:00 391 ms","pid":"1024","caller":"app"} [] []
+[2024-12-22T17:50:49.043886+00:00] main.INFO: {"feed":"undefined","operation":"undefined","status":"Setting mode Update On Schedule for indexer Sales Order Feed","elapsed":"00:00:00 161 ms","pid":"1216","caller":"bin\/magento setup:upgrade"} [] []
+[2024-12-22T17:50:49.063369+00:00] main.INFO: {"feed":"undefined","operation":"undefined","status":"Setting mode Update On Schedule for indexer Sales Order Statuses Feed","elapsed":"00:00:00 180 ms","pid":"1216","caller":"bin\/magento setup:upgrade"} [] []
+[2024-12-22T17:50:49.086609+00:00] main.INFO: {"feed":"undefined","operation":"undefined","status":"Setting mode Update On Schedule for indexer Stores Feed","elapsed":"00:00:00 203 ms","pid":"1216","caller":"bin\/magento setup:upgrade"} [] []
+[2024-12-22T18:22:32.301015+00:00] main.INFO: {"feed":"undefined","operation":"undefined","status":"Setting mode Update On Schedule for indexer Sales Order Feed","elapsed":"00:00:00 675 ms","pid":"1272","caller":"magento\/bin\/magento setup:upgrade"} [] []
+[2024-12-22T18:22:32.319083+00:00] main.INFO: {"feed":"undefined","operation":"undefined","status":"Setting mode Update On Schedule for indexer Sales Order Statuses Feed","elapsed":"00:00:00 693 ms","pid":"1272","caller":"magento\/bin\/magento setup:upgrade"} [] []
+[2024-12-22T18:22:32.339573+00:00] main.INFO: {"feed":"undefined","operation":"undefined","status":"Setting mode Update On Schedule for indexer Stores Feed","elapsed":"00:00:00 714 ms","pid":"1272","caller":"magento\/bin\/magento setup:upgrade"} [] []

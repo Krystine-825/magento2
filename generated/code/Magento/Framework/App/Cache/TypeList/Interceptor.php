@@ -17,42 +17,6 @@ class Interceptor extends \Magento\Framework\App\Cache\TypeList implements \Mage
     /**
      * {@inheritdoc}
      */
-    public function getTypes()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getTypes');
-        return $pluginInfo ? $this->___callPlugins('getTypes', func_get_args(), $pluginInfo) : parent::getTypes();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getTypeLabels()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getTypeLabels');
-        return $pluginInfo ? $this->___callPlugins('getTypeLabels', func_get_args(), $pluginInfo) : parent::getTypeLabels();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getInvalidated()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getInvalidated');
-        return $pluginInfo ? $this->___callPlugins('getInvalidated', func_get_args(), $pluginInfo) : parent::getInvalidated();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function invalidate($typeCode)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'invalidate');
-        return $pluginInfo ? $this->___callPlugins('invalidate', func_get_args(), $pluginInfo) : parent::invalidate($typeCode);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function cleanType($typeCode)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'cleanType');

@@ -26,24 +26,6 @@ class Interceptor extends \Magento\Catalog\Model\ProductLink\Repository implemen
     /**
      * {@inheritdoc}
      */
-    public function getList(\Magento\Catalog\Api\Data\ProductInterface $product)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getList');
-        return $pluginInfo ? $this->___callPlugins('getList', func_get_args(), $pluginInfo) : parent::getList($product);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function delete(\Magento\Catalog\Api\Data\ProductLinkInterface $entity)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'delete');
-        return $pluginInfo ? $this->___callPlugins('delete', func_get_args(), $pluginInfo) : parent::delete($entity);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function deleteById($sku, $type, $linkedProductSku)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'deleteById');

@@ -1,1 +1,0 @@
-/var/www/html/magento/vendor/magento/module-inventory-configurable-product-frontend-ui/view/frontend/web/js/configurable.js
